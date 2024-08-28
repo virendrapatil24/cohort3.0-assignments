@@ -14,7 +14,22 @@
 */
 
 function calculateTotalSpentByCategory(transactions) {
-  return [];
+  let hashMap = new Map();
+
+  for (let transaction of transactions) {
+    const currentTotal = hashMap.get(transaction.category) || 0;
+    hashMap.set(transaction.category, currentTotal + transaction.price);
+  }
+
+  const res = []
+  for (let [category, totalSpent] of hashMap.entries()) {
+    res.push({
+      category: category,
+      totalSpent: totalSpent
+    });
+  }
+
+  return res;
 }
 
 module.exports = calculateTotalSpentByCategory;
